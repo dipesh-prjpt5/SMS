@@ -6,10 +6,7 @@ import Sidebar from "./Sidebar";
 // import Performance from "./Performance";
 import axios from "axios";
 import {
-  AdminDashboardContainer,
-  Content,
   TopContent,
-  // BottomContent,
   Section,
   SectionTitle,
   CardContainer,
@@ -17,6 +14,7 @@ import {
   CardTitle,
   CardContent,
 } from "../../styles/DashboardStyles";
+import { Layout, MainContent } from "../../styles/UniversalStyles";
 
 const AdminDashboard = () => {
   // const [events, setEvents] = useState([]);
@@ -113,9 +111,8 @@ const AdminDashboard = () => {
   }, []);
 
   return (
-    <AdminDashboardContainer>
-      <Sidebar />
-      <Content>
+    <Layout>
+      <MainContent>
         <TopContent>
           <Section>
             <SectionTitle>Overview</SectionTitle>
@@ -144,8 +141,8 @@ const AdminDashboard = () => {
           <Performance studentPerformance={studentPerformance} />
           <Announcement announcements={announcements} />
         </BottomContent> */}
-      </Content>
-    </AdminDashboardContainer>
+      </MainContent>
+    </Layout>
   );
 };
 

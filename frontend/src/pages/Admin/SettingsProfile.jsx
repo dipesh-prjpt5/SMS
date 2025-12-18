@@ -1,32 +1,27 @@
 // SettingsProfile.js
-import React from 'react';
-import Sidebar from './Sidebar';
+import React from "react";
+import Sidebar from "./Sidebar";
 import {
-  ProfileContainer,
-  SidebarContainer,
-  Content,
   ProfileHeader,
   ProfileDetails,
   ProfileLabel,
   ProfileInfo,
   EditButton,
-} from '../../styles/SettingsProfileStyles'; // Import styled components from SettingsProfileStyles.js
+} from "../../styles/SettingsProfileStyles"; // Import styled components from SettingsProfileStyles.js
+import { Layout, MainContent } from "../../styles/UniversalStyles";
 
 const SettingsProfile = () => {
   const teacherInfo = {
-    name: 'John Doe',
-    email: 'johndoe@example.com',
-    phone: '123-456-7890',
-    address: '123 Main St, City, Country',
-    qualification: 'Master of Education',
+    name: "John Doe",
+    email: "johndoe@example.com",
+    phone: "123-456-7890",
+    address: "123 Main St, City, Country",
+    qualification: "Master of Education",
   };
 
   return (
-    <ProfileContainer>
-      <SidebarContainer>
-        <Sidebar />
-      </SidebarContainer>
-      <Content>
+    <Layout>
+      <MainContent>
         <ProfileHeader>Profile Details</ProfileHeader>
         <ProfileDetails>
           <ProfileLabel>Name:</ProfileLabel>
@@ -41,8 +36,8 @@ const SettingsProfile = () => {
           <ProfileInfo>{teacherInfo.qualification}</ProfileInfo>
         </ProfileDetails>
         <EditButton>Edit Profile</EditButton>
-      </Content>
-    </ProfileContainer>
+      </MainContent>
+    </Layout>
   );
 };
 

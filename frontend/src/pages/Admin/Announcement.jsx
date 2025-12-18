@@ -1,11 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import Sidebar from './Sidebar';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useState, useEffect } from "react";
+import axios from "axios";
 import {
-  AnnouncementContainer,
-  Content,
   Title,
   AnnouncementForm,
   FormGroup,
@@ -15,53 +10,53 @@ import {
   AnnouncementList,
   AnnouncementItem,
   AnnouncementContent,
-} from '../../styles/AnnouncementStyles';
+} from "../../styles/AnnouncementStyles";
+
+import { Layout, MainContent } from "../../styles/UniversalStyles";
 
 const Announcement = () => {
   // State for managing announcement
-  const [announcement, setAnnouncement] = useState('');
+  const [newAnnouncement, setNewAnnouncement] = useState("");
   const [announcements, setAnnouncements] = useState([]);
-
-  // Function to fetch announcements
-  const fetchAnnouncements = async () => {
-    try {
-      const response = await axios.get('http://localhost:4000/api/v1/announcements/getall');
-      setAnnouncements(response.data.announcements);
-    } catch (error) {
-      console.error('Error fetching announcements:', error);
-    }
-  };
-  
 
   useEffect(() => {
     fetchAnnouncements();
   }, []);
 
+  // Function to fetch announcements
+  const fetchAnnouncements = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/v1/announcements/getall"
+      );
+      setAnnouncements(response.data.announcements);
+    } catch (error) {
+      console.error("Error fetching announcements:", error);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:4000/api/v1/announcements', {
-        announcement: announcement, // Ensure that the key matches the backend model
-      });
-      console.log('Announcement sent:', response.data);
-      // Display success toast message
-      toast.success('Announcement sent successfully');
-      // Clear the form
-      setAnnouncement('');
-      // Fetch announcements again to update the list
-      fetchAnnouncements();
-    } catch (error) {
-      console.error('Error sending announcement:', error);
-      // Display error toast message
-      toast.error('Error sending announcement');
+    if (newAnnouncement.trim() !== "") {
+      try {
+        const response = await axios.post(
+          "http://localhost:4000/api/v1/announcements",
+          { announcement: newAnnouncement }
+        );
+        // Update announcements list with the new announcement
+        setAnnouncements((prev) => [...prev, response.data.newAnnouncement]);
+
+        // Clear the form
+        setNewAnnouncement("");
+      } catch (error) {
+        console.error("Error sending announcement:", error);
+      }
     }
   };
 
   return (
-    <AnnouncementContainer>
-      <ToastContainer />
-      <Sidebar />
-      <Content>
+    <Layout>
+      <MainContent>
         <Title>Announcement</Title>
         {/* Announcement Form */}
         <AnnouncementForm onSubmit={handleSubmit}>
@@ -69,8 +64,8 @@ const Announcement = () => {
             <Label htmlFor="announcement">Announcement:</Label>
             <TextArea
               id="announcement"
-              value={announcement}
-              onChange={(e) => setAnnouncement(e.target.value)}
+              value={newAnnouncement}
+              onChange={(e) => setNewAnnouncement(e.target.value)}
               required
               rows={4}
               cols={50}
@@ -84,12 +79,14 @@ const Announcement = () => {
         <AnnouncementList>
           {announcements.map((announcement) => (
             <AnnouncementItem key={announcement._id}>
-              <AnnouncementContent>{announcement.announcement}</AnnouncementContent>
+              <AnnouncementContent>
+                {announcement.announcement}
+              </AnnouncementContent>
             </AnnouncementItem>
           ))}
         </AnnouncementList>
-      </Content>
-    </AnnouncementContainer>
+      </MainContent>
+    </Layout>
   );
 };
 

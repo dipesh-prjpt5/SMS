@@ -1,10 +1,7 @@
 // Library.js
-import React, { useState, useEffect } from 'react';
-import Sidebar from './Sidebar';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
-  LibraryContainer,
-  Content,
   Title,
   AddBookForm,
   FormGroup,
@@ -16,10 +13,15 @@ import {
   BookTitle,
   BookAuthor,
   ActionButton,
-} from '../../styles/LibraryStyles';
+} from "../../styles/LibraryStyles";
+import { Layout, MainContent } from "../../styles/UniversalStyles";
 
 const Library = () => {
   const [books, setBooks] = useState([]);
+  const [newBook, setNewBook] = useState({
+    bookname: "",
+    author: "",
+  });
 
   useEffect(() => {
     fetchBooks();
@@ -27,58 +29,78 @@ const Library = () => {
 
   const fetchBooks = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/v1/library/getall');
+      const response = await axios.get(
+        "http://localhost:4000/api/v1/library/getall"
+      );
       setBooks(response.data.books);
     } catch (error) {
-      console.error('Error fetching books:', error);
+      console.error("Error fetching books:", error);
     }
   };
 
-  const addBook = async (book) => {
+  const handleAddBook = async (e) => {
+    e.preventDefault();
+
+    if (newBook.bookname.trim() === "" || newBook.author.trim() === "") {
+      return;
+    }
+
     try {
-      const response = await axios.post('http://localhost:4000/api/v1/library', {
-        bookname: book.title,
-        author: book.author,
-      });
-      setBooks([...books, response.data]);
+      const response = await axios.post(
+        "http://localhost:4000/api/v1/library/books",
+        newBook
+      );
+
+      setBooks([...books, response.data.newBook]);
+      setNewBook({ bookname: "", author: "" });
     } catch (error) {
-      console.error('Error adding book:', error);
+      console.error("Error adding book:", error);
     }
   };
 
-  const handleBookPick = async (bookId, studentId) => {
-    // Implement logic to record when a student picks a book
-  };
+  // const handleBookPick = async (bookId, studentId) => {
+  //   // Implement logic to record when a student picks a book
+  // };
 
-  const handleBookReturn = async (bookId, studentId) => {
-    // Implement logic to mark when a student returns a book
-  };
+  // const handleBookReturn = async (bookId, studentId) => {
+  //   // Implement logic to mark when a student returns a book
+  // };
 
   return (
-    <LibraryContainer>
-      <Sidebar />
-      <Content>
+    <Layout>
+      <MainContent>
         <Title>Library Management</Title>
-        <AddBookForm
-          onSubmit={(e) => {
-            e.preventDefault();
-            const book = {
-              id: Math.random().toString(36).substr(2, 9),
-              title: e.target.title.value,
-              author: e.target.author.value,
-            };
-            addBook(book);
-            e.target.reset();
-          }}
-        >
+        <AddBookForm onSubmit={handleAddBook}>
           <h2>Add New Book</h2>
           <FormGroup>
             <Label htmlFor="title">Title:</Label>
-            <Input type="text" id="title" required />
+            <Input
+              type="text"
+              id="title"
+              value={newBook.bookname}
+              required
+              onChange={(e) =>
+                setNewBook({
+                  ...newBook,
+                  bookname: e.target.value,
+                })
+              }
+            />
           </FormGroup>
           <FormGroup>
             <Label htmlFor="author">Author:</Label>
-            <Input type="text" id="author" required />
+            <Input
+              type="text"
+              value={newBook.author}
+              id="author"
+              required
+              onChange={(e) =>
+                setNewBook({
+                  ...newBook,
+                  author: e.target.value,
+                })
+              }
+            />
           </FormGroup>
           <Button type="submit">Add Book</Button>
         </AddBookForm>
@@ -89,13 +111,21 @@ const Library = () => {
             <BookItem key={book._id}>
               <BookTitle>{book.bookname}</BookTitle>
               <BookAuthor>by {book.author}</BookAuthor>
-              <ActionButton onClick={() => handleBookPick(book._id, 'student123')}>Pick</ActionButton>
-              <ActionButton onClick={() => handleBookReturn(book._id, 'student123')}>Return</ActionButton>
+              {/* <ActionButton
+                onClick={() => handleBookPick(book._id, "student123")}
+              >
+                Pick
+              </ActionButton>
+              <ActionButton
+                onClick={() => handleBookReturn(book._id, "student123")}
+              >
+                Return
+              </ActionButton> */}
             </BookItem>
           ))}
         </BookList>
-      </Content>
-    </LibraryContainer>
+      </MainContent>
+    </Layout>
   );
 };
 

@@ -3,8 +3,6 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import axios from "axios";
 import {
-  TeachersContainer,
-  Content,
   TeachersContent,
   TeachersHeader,
   TeacherList,
@@ -13,6 +11,7 @@ import {
   AddTeacherInput,
   AddTeacherButton,
 } from "../../styles/TeachersStyles"; // Import styled components from TeachersStyles.js
+import { Layout, MainContent } from "../../styles/UniversalStyles";
 
 const Teachers = () => {
   const [newTeacher, setNewTeacher] = useState({
@@ -59,9 +58,8 @@ const Teachers = () => {
   };
 
   return (
-    <TeachersContainer>
-      <Sidebar />
-      <Content>
+    <Layout>
+      <MainContent>
         <TeachersContent>
           <TeachersHeader>Teachers</TeachersHeader>
           <AddTeacherForm onSubmit={handleAddTeacher}>
@@ -99,8 +97,8 @@ const Teachers = () => {
             ))}
           </TeacherList>
         </TeachersContent>
-      </Content>
-    </TeachersContainer>
+      </MainContent>
+    </Layout>
   );
 };
 

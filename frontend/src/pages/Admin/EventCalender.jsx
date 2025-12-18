@@ -1,10 +1,8 @@
 // EventCalendar.js
-import React, { useState, useEffect } from 'react';
-import Sidebar from './Sidebar';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import Sidebar from "./Sidebar";
+import axios from "axios";
 import {
-  EventCalendarContainer,
-  Content,
   CalendarContainer,
   Events,
   Event,
@@ -12,21 +10,24 @@ import {
   EventInput,
   AddEventButton,
   ErrorText,
-} from '../../styles/EventCalendarStyles';
+} from "../../styles/EventCalendarStyles";
+import { Layout, MainContent } from "../../styles/UniversalStyles";
 
 const EventCalendar = () => {
   const [events, setEvents] = useState([]);
-  const [newEvent, setNewEvent] = useState('');
+  const [newEvent, setNewEvent] = useState("");
   const [error, setError] = useState(null);
 
   // Function to fetch events from the backend
   const fetchEvents = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/v1/events/getall');
+      const response = await axios.get(
+        "http://localhost:4000/api/v1/events/getall"
+      );
       setEvents(response.data.events || []);
     } catch (error) {
-      console.error('Error fetching events:', error);
-      setError('Error fetching events');
+      console.error("Error fetching events:", error);
+      setError("Error fetching events");
     }
   };
 
@@ -38,25 +39,24 @@ const EventCalendar = () => {
   const addEvent = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:4000/api/v1/events', {
+      const response = await axios.post("http://localhost:4000/api/v1/events", {
         event: newEvent,
       });
       setEvents([...events, response.data.event]);
-      setNewEvent('');
+      setNewEvent("");
     } catch (error) {
-      console.error('Error adding event:', error);
+      console.error("Error adding event:", error);
       if (error.response && error.response.data && error.response.data.error) {
         setError(error.response.data.error);
       } else {
-        setError('Error adding event');
+        setError("Error adding event");
       }
     }
   };
 
   return (
-    <EventCalendarContainer>
-      <Sidebar />
-      <Content>
+    <Layout>
+      <MainContent>
         <h1>Events & Calendar</h1>
         <div>Current Time: {new Date().toLocaleString()}</div>
         <CalendarContainer>
@@ -81,8 +81,8 @@ const EventCalendar = () => {
             <Event key={index}>{event}</Event>
           ))}
         </Events>
-      </Content>
-    </EventCalendarContainer>
+      </MainContent>
+    </Layout>
   );
 };
 

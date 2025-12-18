@@ -3,9 +3,6 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import axios from "axios";
 import {
-  ExamContainer,
-  SidebarContainer,
-  Content,
   ExamHeader,
   ExamForm,
   FormLabel,
@@ -13,6 +10,7 @@ import {
   AddButton,
   ExamResultsContainer,
 } from "../../styles/ExamStyles";
+import { Layout, MainContent } from "../../styles/UniversalStyles";
 
 const Exam = () => {
   const [newExamData, setnewExamData] = useState({
@@ -72,11 +70,8 @@ const Exam = () => {
   };
 
   return (
-    <ExamContainer>
-      <SidebarContainer>
-        <Sidebar />
-      </SidebarContainer>
-      <Content>
+    <Layout>
+      <MainContent>
         <ExamHeader>Exam Details</ExamHeader>
         <ExamForm onSubmit={handleAddExam}>
           <FormLabel>Name:</FormLabel>
@@ -129,8 +124,8 @@ const Exam = () => {
             </ExamResultsContainer>
           ))}
         </ul>
-      </Content>
-    </ExamContainer>
+      </MainContent>
+    </Layout>
   );
 };
 

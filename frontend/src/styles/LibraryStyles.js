@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 export const LibraryContainer = styled.div`
   display: flex;
+  margine-left: 240px; 
 `;
 
 export const Content = styled.div`

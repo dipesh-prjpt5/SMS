@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import axios from "axios";
 import {
-  ClassesContainer,
-  Content,
   ClassesContent,
   ClassesHeader,
   ClassList,
@@ -13,6 +11,7 @@ import {
   AddClassInput,
   AddClassButton,
 } from "../../styles/ClassesStyles";
+import { Layout, MainContent } from "../../styles/UniversalStyles";
 
 const Classes = () => {
   const [newClassName, setNewClassName] = useState("");
@@ -57,9 +56,8 @@ const Classes = () => {
   };
 
   return (
-    <ClassesContainer>
-      <Sidebar />
-      <Content>
+    <Layout>
+      <MainContent>
         <ClassesContent>
           <ClassesHeader>Classes</ClassesHeader>
           <AddClassForm onSubmit={handleAddClass}>
@@ -77,8 +75,8 @@ const Classes = () => {
             ))}
           </ClassList>
         </ClassesContent>
-      </Content>
-    </ClassesContainer>
+      </MainContent>
+    </Layout>
   );
 };
 

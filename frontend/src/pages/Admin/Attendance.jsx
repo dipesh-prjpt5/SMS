@@ -14,6 +14,7 @@ import {
   Divider,
   SubmitButton,
 } from "../../styles/AttendanceStyles";
+import { Layout, MainContent } from "../../styles/UniversalStyles";
 
 const Attendance = () => {
   const [students, setStudents] = useState([]);
@@ -73,9 +74,8 @@ const Attendance = () => {
   };
 
   return (
-    <AttendanceContainer>
-      <Sidebar />
-      <Content>
+    <Layout>
+      <MainContent>
         <AttendanceContent>
           <AttendanceHeader>Attendance</AttendanceHeader>
           <AttendanceList>
@@ -118,8 +118,8 @@ const Attendance = () => {
           </AttendanceList>
           <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
         </AttendanceContent>
-      </Content>
-    </AttendanceContainer>
+      </MainContent>
+    </Layout>
   );
 };
 

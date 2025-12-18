@@ -1,10 +1,7 @@
 // Students.js
 import React, { useState, useEffect } from "react";
-import Sidebar from "./Sidebar";
 import axios from "axios";
 import {
-  StudentsContainer,
-  Content,
   StudentsContent,
   StudentsHeader,
   StudentList,
@@ -13,6 +10,7 @@ import {
   AddStudentInput,
   AddStudentButton,
 } from "../../styles/StudentsStyles";
+import { Layout, MainContent } from "../../styles/UniversalStyles";
 
 const Students = () => {
   const [newStudent, setNewStudent] = useState({
@@ -64,9 +62,8 @@ const Students = () => {
   };
 
   return (
-    <StudentsContainer>
-      <Sidebar />
-      <Content>
+    <Layout>
+      <MainContent>
         <StudentsContent>
           <StudentsHeader>Students</StudentsHeader>
           <AddStudentForm onSubmit={handleAddStudent}>
@@ -107,8 +104,8 @@ const Students = () => {
             ))}
           </StudentList>
         </StudentsContent>
-      </Content>
-    </StudentsContainer>
+      </MainContent>
+    </Layout>
   );
 };
 

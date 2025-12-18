@@ -2,13 +2,13 @@
 import React from "react";
 import Sidebar from "./Sidebar";
 import {
-  PerformanceContainer,
   Content,
   PerformanceContent,
   PerformanceHeader,
   SchoolPerformance,
   IndividualPerformance,
 } from "../../styles/PerformanceStyles";
+import { Layout, MainContent } from "../../styles/UniversalStyles";
 
 const Performance = () => {
   // Sample data for school performance
@@ -25,9 +25,8 @@ const Performance = () => {
   ];
 
   return (
-    <PerformanceContainer>
-      <Sidebar /> {/* Include the Sidebar component */}
-      <Content>
+    <Layout>
+      <MainContent>
         <PerformanceContent>
           <PerformanceHeader>School Performance</PerformanceHeader>
           <SchoolPerformance>
@@ -43,8 +42,8 @@ const Performance = () => {
             ))}
           </IndividualPerformance>
         </PerformanceContent>
-      </Content>
-    </PerformanceContainer>
+      </MainContent>
+    </Layout>
   );
 };
 

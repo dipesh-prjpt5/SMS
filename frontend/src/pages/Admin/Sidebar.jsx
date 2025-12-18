@@ -16,17 +16,10 @@ import {
 } from "react-icons/bs";
 
 const SidebarContainer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 250px;
-  height: 100%;
-  background-color: #2c3e50; /* Dark blue background */
+  width: 240px;
+  background-color: #2c3e50;
   color: white;
-  overflow-y: auto; /* Enable vertical scrolling */
-  // padding-top: 60px;
-  transition: width 0.3s ease; /* Smooth width transition */
-  z-index: 100; /* Ensure sidebar stays above content */
+  overflow-y: auto;
 `;
 
 const SidebarHeader = styled.div`
@@ -67,27 +60,6 @@ const Logo = styled.img`
   width: 50px;
   height: auto;
 `;
-
-// const ToggleButton = styled.div`
-//   position: absolute;
-//   top: 20px;
-//   right: 0;
-//   width: 30px;
-//   height: 30px;
-//   background-color: #34495e; /* Darker background */
-//   border-radius: 50%;
-//   cursor: pointer;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-// `;
-
-// const ToggleIcon = styled.span`
-//   color: white;
-//   font-size: 20px;
-//   transform: ${({ isOpen }) => (isOpen ? "rotate(180deg)" : "rotate(0deg)")};
-//   transition: transform 0.3s ease;
-// `;
 
 const Sidebar = () => {
   return (

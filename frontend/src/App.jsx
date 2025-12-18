@@ -39,6 +39,7 @@ import CheckAnnouncementSection from "../src/pages/Teachers/Announcement";
 import AssignmentSection from "../src/pages/Teachers/Assignments";
 import CheckAttendanceSection from "../src/pages/Teachers/Attendance";
 import CheckExamSection from "../src/pages/Teachers/Exams";
+import AdminLayout from "./pages/LayOut/AdminLayout.jsx";
 
 const App = () => {
   return (
@@ -52,27 +53,28 @@ const App = () => {
         <Route exact path="/admin-signIn" element={<AdminSignIn />} />
         <Route exact path="/student-signIn" element={<StudentSignIn />} />
         <Route exact path="/teacher-signIn" element={<TeacherSignIn />} />
+        <Route exact path="/admin/register" element={<AdminRegister />} />
 
         {/* All the dashboard routes */}
 
-        <Route exact path="/admin/dashboard" element={<AdminDashboard />} />
         <Route exact path="/teacher/dashboard" element={<TeacherDashboard />} />
         <Route exact path="/student/dashboard" element={<StudentDashboard />} />
 
         {/* Admin section here */}
-
-        <Route exact path="/admin/register" element={<AdminRegister />} />
-        <Route exact path="/admin/classes" element={<Classes />} />
-        <Route exact path="/admin/exams" element={<Exam />} />
-        <Route exact path="/admin/attendance" element={<Attendance />} />
-        <Route exact path="/admin/performance" element={<Performance />} />
-        <Route exact path="/admin/teachers" element={<Teachers />} />
-        <Route exact path="/admin/students" element={<Students />} />
-        <Route exact path="/admin/assignments" element={<Assignments />} />
-        <Route exact path="/admin/library" element={<Library />} />
-        <Route exact path="/admin/communication" element={<Announcement />} />
-        <Route exact path="/admin/events" element={<EventCalender />} />
-        <Route exact path="/admin/settings" element={<SettingsProfile />} />
+        <Route element={<AdminLayout />}>
+          <Route exact path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route exact path="/admin/classes" element={<Classes />} />
+          <Route exact path="/admin/exams" element={<Exam />} />
+          <Route exact path="/admin/attendance" element={<Attendance />} />
+          <Route exact path="/admin/performance" element={<Performance />} />
+          <Route exact path="/admin/teachers" element={<Teachers />} />
+          <Route exact path="/admin/students" element={<Students />} />
+          <Route exact path="/admin/assignments" element={<Assignments />} />
+          <Route exact path="/admin/library" element={<Library />} />
+          <Route exact path="/admin/communication" element={<Announcement />} />
+          <Route exact path="/admin/events" element={<EventCalender />} />
+          <Route exact path="/admin/settings" element={<SettingsProfile />} />
+        </Route>
 
         {/* Students sections here  */}
 
