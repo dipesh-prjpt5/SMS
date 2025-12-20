@@ -1,6 +1,5 @@
 // Students.js
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import {
   StudentsContent,
   StudentsHeader,
@@ -10,7 +9,13 @@ import {
   AddStudentInput,
   AddStudentButton,
 } from "../../styles/StudentsStyles";
-import { Layout, MainContent } from "../../styles/UniversalStyles";
+import {
+  Layout,
+  MainContent,
+  PageHeading,
+  SubHeading,
+} from "../../styles/UniversalStyles";
+import { getStudents, postStudent } from "../../api/adminapi";
 
 const Students = () => {
   const [newStudent, setNewStudent] = useState({
@@ -26,9 +31,7 @@ const Students = () => {
 
   const fetchStudents = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:4000/api/v1/students/getall"
-      );
+      const response = await getStudents();
       setStudents(response.data.students);
     } catch (error) {
       if (error.response?.status === 404) {
@@ -48,10 +51,7 @@ const Students = () => {
       newStudent.grade.trim() !== ""
     ) {
       try {
-        const response = await axios.post(
-          "http://localhost:4000/api/v1/students",
-          newStudent
-        );
+        const response = await postStudent(newStudent);
         const createStudent = response.data.student;
         setStudents([...students, createStudent]);
         setNewStudent({ name: "", registrationNumber: "", grade: "" });
@@ -64,46 +64,46 @@ const Students = () => {
   return (
     <Layout>
       <MainContent>
-        <StudentsContent>
-          <StudentsHeader>Students</StudentsHeader>
-          <AddStudentForm onSubmit={handleAddStudent}>
-            <AddStudentInput
-              type="text"
-              placeholder="Enter student name"
-              value={newStudent.name}
-              onChange={(e) =>
-                setNewStudent({ ...newStudent, name: e.target.value })
-              }
-            />
-            <AddStudentInput
-              type="text"
-              placeholder="Enter registration number"
-              value={newStudent.registrationNumber}
-              onChange={(e) =>
-                setNewStudent({
-                  ...newStudent,
-                  registrationNumber: e.target.value,
-                })
-              }
-            />
-            <AddStudentInput
-              type="text"
-              placeholder="Enter grade"
-              value={newStudent.grade}
-              onChange={(e) =>
-                setNewStudent({ ...newStudent, grade: e.target.value })
-              }
-            />
-            <AddStudentButton type="submit">Add Student</AddStudentButton>
-          </AddStudentForm>
-          <StudentList>
-            {students.map((student) => (
-              <StudentItem key={student._id}>
-                {student.name} - {student.registrationNumber} - {student.grade}
-              </StudentItem>
-            ))}
-          </StudentList>
-        </StudentsContent>
+        <PageHeading>Students</PageHeading>
+        <AddStudentForm onSubmit={handleAddStudent}>
+          <SubHeading>Add New Student</SubHeading>
+          <AddStudentInput
+            type="text"
+            placeholder="Enter student name"
+            value={newStudent.name}
+            onChange={(e) =>
+              setNewStudent({ ...newStudent, name: e.target.value })
+            }
+          />
+          <AddStudentInput
+            type="text"
+            placeholder="Enter registration number"
+            value={newStudent.registrationNumber}
+            onChange={(e) =>
+              setNewStudent({
+                ...newStudent,
+                registrationNumber: e.target.value,
+              })
+            }
+          />
+          <AddStudentInput
+            type="text"
+            placeholder="Enter grade"
+            value={newStudent.grade}
+            onChange={(e) =>
+              setNewStudent({ ...newStudent, grade: e.target.value })
+            }
+          />
+          <AddStudentButton type="submit">Add Student</AddStudentButton>
+        </AddStudentForm>
+        <StudentList>
+          <SubHeading>Student List</SubHeading>
+          {students.map((student) => (
+            <StudentItem key={student._id}>
+              {student.name} - {student.registrationNumber} - {student.grade}
+            </StudentItem>
+          ))}
+        </StudentList>
       </MainContent>
     </Layout>
   );

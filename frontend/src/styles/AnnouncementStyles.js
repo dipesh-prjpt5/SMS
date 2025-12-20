@@ -1,21 +1,6 @@
 // AnnouncementStyles.js
 import styled from 'styled-components';
 
-export const AnnouncementContainer = styled.div`
-  display: flex;
-  padding-left: 240px;
-
-  @media screen and (max-width: 768px) {
-    flex-direction: column;
-    padding-left: 0;
-  }
-`;
-
-export const Content = styled.div`
-  flex: 1;
-  padding: 20px;
-`;
-
 export const Title = styled.h1`
   margin-bottom: 20px;
 `;
@@ -63,17 +48,6 @@ export const AnnouncementItem = styled.li`
 export const AnnouncementContent = styled.p`
   font-size: 16px;
 `;
-
-export const SidebarContainer = styled.div`
-  flex: 0 0 250px; /* Sidebar width */
-`;
-
-
-export const AnnouncementHeader = styled.h1`
-  font-size: 24px;
-  margin-bottom: 20px;
-`;
-
 
 export const AnnouncementTitle = styled.h3`
   margin-bottom: 10px;

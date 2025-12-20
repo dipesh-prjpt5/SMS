@@ -1,8 +1,6 @@
 // Library.js
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import {
-  Title,
   AddBookForm,
   FormGroup,
   Label,
@@ -14,7 +12,8 @@ import {
   BookAuthor,
   ActionButton,
 } from "../../styles/LibraryStyles";
-import { Layout, MainContent } from "../../styles/UniversalStyles";
+import { Layout, MainContent, PageHeading } from "../../styles/UniversalStyles";
+import { getBooks, postBook } from "../../api/adminapi";
 
 const Library = () => {
   const [books, setBooks] = useState([]);
@@ -29,9 +28,7 @@ const Library = () => {
 
   const fetchBooks = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:4000/api/v1/library/getall"
-      );
+      const response = await getBooks();
       setBooks(response.data.books);
     } catch (error) {
       console.error("Error fetching books:", error);
@@ -46,10 +43,7 @@ const Library = () => {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/v1/library/books",
-        newBook
-      );
+      const response = await postBook(newBook);
 
       setBooks([...books, response.data.newBook]);
       setNewBook({ bookname: "", author: "" });
@@ -69,7 +63,7 @@ const Library = () => {
   return (
     <Layout>
       <MainContent>
-        <Title>Library Management</Title>
+        <PageHeading>Library Management</PageHeading>
         <AddBookForm onSubmit={handleAddBook}>
           <h2>Add New Book</h2>
           <FormGroup>

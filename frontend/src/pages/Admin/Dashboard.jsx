@@ -1,34 +1,33 @@
 // AdminDashboard.js
 import React, { useState, useEffect } from "react";
-import Sidebar from "./Sidebar";
 // import EventCalendar from "./EventCalender";
 // import Announcement from "./Announcement";
 // import Performance from "./Performance";
-import axios from "axios";
 import {
   TopContent,
   Section,
-  SectionTitle,
   CardContainer,
   Card,
   CardTitle,
   CardContent,
 } from "../../styles/DashboardStyles";
-import { Layout, MainContent } from "../../styles/UniversalStyles";
+
+import { Layout, MainContent, PageHeading } from "../../styles/UniversalStyles";
+
+import {
+  getStudentCount,
+  getClassCount,
+  getTeacherCount,
+} from "../../api/adminapi";
 
 const AdminDashboard = () => {
   // const [events, setEvents] = useState([]);
-  // const [announcements, setAnnouncements] = useState([]);
+  const [announcements, setAnnouncements] = useState([]);
   // const [studentPerformance, setStudentPerformance] = useState([]);
+
   const [studentCount, setStudentCount] = useState(0);
   const [teacherCount, setTeacherCount] = useState(0);
   const [classCount, setClassCount] = useState(0);
-
-  // useEffect(() => {
-  //   fetchEvents();
-  //   fetchAnnouncements();
-  //   fetchStudentPerformance();
-  // }, []);
 
   // const fetchEvents = async () => {
   //   try {
@@ -46,16 +45,16 @@ const AdminDashboard = () => {
   //   }
   // };
 
-  // const fetchAnnouncements = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       "http://localhost:4000/api/v1/announcements/getall"
-  //     );
-  //     setAnnouncements(response.data.announcements || []);
-  //   } catch (error) {
-  //     console.error("Error fetching announcements:", error);
-  //   }
-  // };
+  const fetchAnnouncements = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/v1/announcements/getall"
+      );
+      setAnnouncements(response.data.announcements || []);
+    } catch (error) {
+      console.error("Error fetching announcements:", error);
+    }
+  };
 
   // const fetchStudentPerformance = async () => {
   //   try {
@@ -68,11 +67,9 @@ const AdminDashboard = () => {
   //   }
   // };
 
-  const getStudentCount = async () => {
+  const fetchStudentCount = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:4000/api/v1/students/count"
-      );
+      const response = await getStudentCount();
       setStudentCount(response.data.count);
     } catch (error) {
       console.error("Error fetching student count:", error);
@@ -80,11 +77,9 @@ const AdminDashboard = () => {
     }
   };
 
-  const getClassCount = async () => {
+  const fetchClassCount = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:4000/api/v1/class/count"
-      );
+      const response = await getClassCount();
       setClassCount(response.data.count);
     } catch (error) {
       console.error("Error fetching class count:", error);
@@ -92,11 +87,9 @@ const AdminDashboard = () => {
     }
   };
 
-  const getTeacherCount = async () => {
+  const fetchTeacherCount = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:4000/api/v1/teachers/count"
-      );
+      const response = await getTeacherCount();
       setTeacherCount(response.data.count);
     } catch (error) {
       console.error("Error fetching teacher count:", error);
@@ -105,9 +98,9 @@ const AdminDashboard = () => {
   };
 
   useEffect(() => {
-    getStudentCount();
-    getClassCount();
-    getTeacherCount();
+    fetchStudentCount();
+    fetchClassCount();
+    fetchTeacherCount();
   }, []);
 
   return (
@@ -115,7 +108,7 @@ const AdminDashboard = () => {
       <MainContent>
         <TopContent>
           <Section>
-            <SectionTitle>Overview</SectionTitle>
+            <PageHeading>Overview</PageHeading>
             <CardContainer>
               <Card>
                 <CardTitle>Total Students</CardTitle>
@@ -131,16 +124,10 @@ const AdminDashboard = () => {
               </Card>
             </CardContainer>
           </Section>
-
-          {/* <Section>
-            <EventCalendar events={events} />
-          </Section> */}
+          <Section>
+            <PageHeading>Recent Assignments</PageHeading>
+          </Section>
         </TopContent>
-
-        {/* <BottomContent>
-          <Performance studentPerformance={studentPerformance} />
-          <Announcement announcements={announcements} />
-        </BottomContent> */}
       </MainContent>
     </Layout>
   );

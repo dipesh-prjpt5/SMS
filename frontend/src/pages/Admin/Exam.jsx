@@ -1,7 +1,5 @@
 // Exam.js
 import React, { useState, useEffect } from "react";
-import Sidebar from "./Sidebar";
-import axios from "axios";
 import {
   ExamHeader,
   ExamForm,
@@ -10,7 +8,8 @@ import {
   AddButton,
   ExamResultsContainer,
 } from "../../styles/ExamStyles";
-import { Layout, MainContent } from "../../styles/UniversalStyles";
+import { Layout, MainContent, PageHeading } from "../../styles/UniversalStyles";
+import { getExams, postExam } from "../../api/adminapi";
 
 const Exam = () => {
   const [newExamData, setnewExamData] = useState({
@@ -28,9 +27,7 @@ const Exam = () => {
 
   const fetchExams = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:4000/api/v1/exam/getall"
-      );
+      const response = await getExams();
       setExams(response.data.exams);
     } catch (error) {
       console.error("Error fetching exams:", error);
@@ -51,10 +48,7 @@ const Exam = () => {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/v1/exam",
-        newExamData
-      );
+      const response = await postExam(newExamData);
 
       setExams([...exams, response.data.exam]);
 
@@ -72,7 +66,7 @@ const Exam = () => {
   return (
     <Layout>
       <MainContent>
-        <ExamHeader>Exam Details</ExamHeader>
+        <PageHeading>Exam Details</PageHeading>
         <ExamForm onSubmit={handleAddExam}>
           <FormLabel>Name:</FormLabel>
           <FormInput

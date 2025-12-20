@@ -1,66 +1,72 @@
-// PerformanceSection.js
-import React from 'react';
-import Sidebar from './Sidebar';
-// import { Line } from 'react-chartjs-2';
 import {
-  PerformanceContainer,
-  SidebarContainer,
-  Content,
   PerformanceHeader,
   PerformanceInfo,
   PerformanceGraphContainer,
   TotalMarks,
-} from '../../styles/PerformanceStyles'; // Import styled components from PerformanceSectionStyles.js
+} from "../../styles/PerformanceStyles";
+import { Layout, MainContent, PageHeading } from "../../styles/UniversalStyles";
+import { Line } from "react-chartjs-2";
+
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend
+);
 
 const PerformanceSection = () => {
-  // Sample performance data
   const performanceData = {
-    months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-    marks: [80, 85, 90, 88, 92, 85], // Sample marks for each month
-    totalMarks: 520 // Sample total marks for the year
+    months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    marks: [80, 85, 90, 88, 92, 85],
+    totalMarks: 520,
   };
 
-  // Line chart data
   const lineChartData = {
     labels: performanceData.months,
     datasets: [
       {
-        label: 'Performance Trends',
-        fill: false,
-        lineTension: 0.1,
-        backgroundColor: '#007bff',
-        borderColor: '#007bff',
-        data: performanceData.marks
-      }
-    ]
+        label: "Performance Trends",
+        data: performanceData.marks,
+        borderColor: "#007bff",
+        backgroundColor: "#007bff",
+        tension: 0.3,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
   };
 
   return (
-    <PerformanceContainer>
-      <SidebarContainer>
-        <Sidebar />
-      </SidebarContainer>
-      <Content>
-        <PerformanceHeader>Performance</PerformanceHeader>
+    <Layout>
+      <MainContent>
+        <PageHeading>Performance</PageHeading>
         <PerformanceInfo>
           <PerformanceGraphContainer>
-            <Line
-              data={lineChartData}
-              options={{
-                scales: {
-                  yAxes: [{
-                    ticks: {
-                      beginAtZero: true
-                    }
-                  }]
-                }
-              }}
-            />
+            <Line data={lineChartData} options={options} />
           </PerformanceGraphContainer>
           <TotalMarks>Total Marks: {performanceData.totalMarks}</TotalMarks>
         </PerformanceInfo>
-      </Content>
-    </PerformanceContainer>
+      </MainContent>
+    </Layout>
   );
 };
 

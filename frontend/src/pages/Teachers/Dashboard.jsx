@@ -1,16 +1,24 @@
 // TeacherDashboard.js
-import React from 'react';
-import Sidebar from './Sidebar';
-import { TeacherDashboardContainer, Content, Section, SectionTitle, CardContainer, Card, CardTitle, CardContent } 
-from '../../styles/DashboardStyles';
+import React from "react";
+import Sidebar from "./Sidebar";
+import {
+  TeacherDashboardContainer,
+  Content,
+  Section,
+  SectionTitle,
+  CardContainer,
+  Card,
+  CardTitle,
+  CardContent,
+} from "../../styles/DashboardStyles";
+import { Layout, MainContent, PageHeading } from "../../styles/UniversalStyles";
 
 const TeacherDashboard = () => {
   return (
-    <TeacherDashboardContainer>
-      <Sidebar />
-      <Content>
+    <Layout>
+      <MainContent>
         <Section>
-          <SectionTitle>Overview</SectionTitle>
+          <PageHeading>Overview</PageHeading>
           <CardContainer>
             <Card>
               <CardTitle>Total Students</CardTitle>
@@ -27,19 +35,9 @@ const TeacherDashboard = () => {
           </CardContainer>
         </Section>
 
-        <Section>
-          <SectionTitle>Recent Activity</SectionTitle>
-          {/* Add a list of recent activity items */}
-        </Section>
-
-        <Section>
-          <SectionTitle>Upcoming Events</SectionTitle>
-          {/* Add a calendar or list of upcoming events */}
-        </Section>
-
         {/* Add more sections for other parts of the admin dashboard */}
-      </Content>
-    </TeacherDashboardContainer>
+      </MainContent>
+    </Layout>
   );
 };
 

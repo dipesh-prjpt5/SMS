@@ -1,17 +1,11 @@
-// AnnouncementSection.js
 import React, { useState, useEffect } from "react";
-import Sidebar from "./Sidebar";
 import axios from "axios";
 import {
-  AnnouncementContainer,
-  SidebarContainer,
-  Content,
-  AnnouncementHeader,
   AnnouncementList,
   AnnouncementItem,
   AnnouncementTitle,
-  AnnouncementContent,
 } from "../../styles/AnnouncementStyles";
+import { Layout, MainContent, PageHeading } from "../../styles/UniversalStyles";
 
 const AnnouncementSection = () => {
   const [announcements, setAnnouncements] = useState([]);
@@ -32,12 +26,9 @@ const AnnouncementSection = () => {
   };
 
   return (
-    <AnnouncementContainer>
-      <SidebarContainer>
-        <Sidebar />
-      </SidebarContainer>
-      <Content>
-        <AnnouncementHeader>Announcements</AnnouncementHeader>
+    <Layout>
+      <MainContent>
+        <PageHeading>Announcements</PageHeading>
         <AnnouncementList>
           {announcements.map((announcement) => (
             <AnnouncementItem key={announcement._id}>
@@ -45,8 +36,8 @@ const AnnouncementSection = () => {
             </AnnouncementItem>
           ))}
         </AnnouncementList>
-      </Content>
-    </AnnouncementContainer>
+      </MainContent>
+    </Layout>
   );
 };
 

@@ -1,25 +1,30 @@
 // TeacherProfileSection.js
-import React, { useState } from 'react';
-import Sidebar from './Sidebar';
-import { ProfileContainer, SidebarContainer, Content, ProfileHeader, ProfileDetails, ProfileLabel, ProfileInfo, EditButton } 
-from '../../styles/SettingsProfileStyles'; 
+import React, { useState } from "react";
+import {
+  ProfileContainer,
+  SidebarContainer,
+  Content,
+  ProfileHeader,
+  ProfileDetails,
+  ProfileLabel,
+  ProfileInfo,
+  EditButton,
+} from "../../styles/SettingsProfileStyles";
+import { Layout, MainContent, PageHeading } from "../../styles/UniversalStyles";
 
 const TeacherProfileSection = () => {
   const [teacherInfo, setTeacherInfo] = useState({
-    name: 'John Doe',
-    email: 'johndoe@example.com',
-    phone: '123-456-7890',
-    address: '123 Main St, City, Country',
-    qualification: 'Master of Education',
+    name: "John Doe",
+    email: "johndoe@example.com",
+    phone: "123-456-7890",
+    address: "123 Main St, City, Country",
+    qualification: "Master of Education",
   });
 
   return (
-    <ProfileContainer>
-      <SidebarContainer>
-        <Sidebar />
-      </SidebarContainer>
-      <Content>
-        <ProfileHeader>Profile Details</ProfileHeader>
+    <Layout>
+      <MainContent>
+        <PageHeading>Profile Details</PageHeading>
         <ProfileDetails>
           <ProfileLabel>Name:</ProfileLabel>
           <ProfileInfo>{teacherInfo.name}</ProfileInfo>
@@ -33,8 +38,8 @@ const TeacherProfileSection = () => {
           <ProfileInfo>{teacherInfo.qualification}</ProfileInfo>
         </ProfileDetails>
         <EditButton>Edit Profile</EditButton>
-      </Content>
-    </ProfileContainer>
+      </MainContent>
+    </Layout>
   );
 };
 

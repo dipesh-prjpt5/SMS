@@ -8,7 +8,7 @@ import {
   ProfileInfo,
   EditButton,
 } from "../../styles/SettingsProfileStyles"; // Import styled components from SettingsProfileStyles.js
-import { Layout, MainContent } from "../../styles/UniversalStyles";
+import { Layout, MainContent, PageHeading } from "../../styles/UniversalStyles";
 
 const SettingsProfile = () => {
   const teacherInfo = {
@@ -22,7 +22,7 @@ const SettingsProfile = () => {
   return (
     <Layout>
       <MainContent>
-        <ProfileHeader>Profile Details</ProfileHeader>
+        <PageHeading>Profile Details</PageHeading>
         <ProfileDetails>
           <ProfileLabel>Name:</ProfileLabel>
           <ProfileInfo>{teacherInfo.name}</ProfileInfo>

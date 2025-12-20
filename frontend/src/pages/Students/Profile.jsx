@@ -1,6 +1,6 @@
 // ProfileSection.js
-import React from 'react';
-import Sidebar from './Sidebar';
+import React from "react";
+import Sidebar from "./Sidebar";
 import {
   ProfileContainer,
   SidebarContainer,
@@ -10,25 +10,23 @@ import {
   ProfileDetail,
   Label,
   Value,
-} from '../../styles/SettingsProfileStyles'; // Import styled components from ProfileSectionStyles.js
+} from "../../styles/SettingsProfileStyles"; // Import styled components from ProfileSectionStyles.js
+import { Layout, MainContent, PageHeading } from "../../styles/UniversalStyles";
 
 const ProfileSection = () => {
   // Sample student profile data
   const studentProfile = {
-    name: 'John Doe',
+    name: "John Doe",
     age: 18,
-    grade: '12th',
-    school: 'Example High School',
-    email: 'john.doe@example.com'
+    grade: "12th",
+    school: "Example High School",
+    email: "john.doe@example.com",
   };
 
   return (
-    <ProfileContainer>
-      <SidebarContainer>
-        <Sidebar />
-      </SidebarContainer>
-      <Content>
-        <ProfileHeader>Profile</ProfileHeader>
+    <Layout>
+      <MainContent>
+        <PageHeading>Profile</PageHeading>
         <ProfileInfo>
           <ProfileDetail>
             <Label>Name:</Label>
@@ -51,8 +49,8 @@ const ProfileSection = () => {
             <Value>{studentProfile.email}</Value>
           </ProfileDetail>
         </ProfileInfo>
-      </Content>
-    </ProfileContainer>
+      </MainContent>
+    </Layout>
   );
 };
 

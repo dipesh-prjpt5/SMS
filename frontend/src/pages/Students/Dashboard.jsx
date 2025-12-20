@@ -1,7 +1,4 @@
-import Sidebar from "./Sidebar";
 import {
-  StudentDashboardContainer,
-  Content,
   Section,
   SectionTitle,
   CardContainer,
@@ -9,14 +6,14 @@ import {
   CardTitle,
   CardContent,
 } from "../../styles/DashboardStyles";
+import { Layout, MainContent, PageHeading } from "../../styles/UniversalStyles";
 
 const StudentDashboard = () => {
   return (
-    <StudentDashboardContainer>
-      <Sidebar />
-      <Content>
+    <Layout>
+      <MainContent>
         <Section>
-          <SectionTitle>Overview</SectionTitle>
+          <PageHeading>Overview</PageHeading>
           <CardContainer>
             <Card>
               <CardTitle>Assignments</CardTitle>
@@ -32,8 +29,8 @@ const StudentDashboard = () => {
             </Card>
           </CardContainer>
         </Section>
-      </Content>
-    </StudentDashboardContainer>
+      </MainContent>
+    </Layout>
   );
 };
 

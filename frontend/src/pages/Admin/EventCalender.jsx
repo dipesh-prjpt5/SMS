@@ -11,7 +11,7 @@ import {
   AddEventButton,
   ErrorText,
 } from "../../styles/EventCalendarStyles";
-import { Layout, MainContent } from "../../styles/UniversalStyles";
+import { Layout, MainContent, PageHeading } from "../../styles/UniversalStyles";
 
 const EventCalendar = () => {
   const [events, setEvents] = useState([]);
@@ -57,7 +57,7 @@ const EventCalendar = () => {
   return (
     <Layout>
       <MainContent>
-        <h1>Events & Calendar</h1>
+        <PageHeading>Events & Calendar</PageHeading>
         <div>Current Time: {new Date().toLocaleString()}</div>
         <CalendarContainer>
           {/* Display Calendar Here */}

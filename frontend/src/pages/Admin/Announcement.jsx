@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import {
-  Title,
   AnnouncementForm,
   FormGroup,
   Label,
@@ -12,7 +10,9 @@ import {
   AnnouncementContent,
 } from "../../styles/AnnouncementStyles";
 
-import { Layout, MainContent } from "../../styles/UniversalStyles";
+import { Layout, MainContent, PageHeading } from "../../styles/UniversalStyles";
+
+import { getAnnouncements, postAnnouncement } from "../../api/adminapi";
 
 const Announcement = () => {
   // State for managing announcement
@@ -26,9 +26,7 @@ const Announcement = () => {
   // Function to fetch announcements
   const fetchAnnouncements = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:4000/api/v1/announcements/getall"
-      );
+      const response = await getAnnouncements();
       setAnnouncements(response.data.announcements);
     } catch (error) {
       console.error("Error fetching announcements:", error);
@@ -37,27 +35,22 @@ const Announcement = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (newAnnouncement.trim() !== "") {
-      try {
-        const response = await axios.post(
-          "http://localhost:4000/api/v1/announcements",
-          { announcement: newAnnouncement }
-        );
-        // Update announcements list with the new announcement
-        setAnnouncements((prev) => [...prev, response.data.newAnnouncement]);
 
-        // Clear the form
-        setNewAnnouncement("");
-      } catch (error) {
-        console.error("Error sending announcement:", error);
-      }
+    if (!newAnnouncement.trim()) return;
+
+    try {
+      const response = await postAnnouncement(newAnnouncement);
+      setAnnouncements((prev) => [...prev, response.data.newAnnouncement]);
+      setNewAnnouncement("");
+    } catch (error) {
+      console.error("Error sending announcement:", error);
     }
   };
 
   return (
     <Layout>
       <MainContent>
-        <Title>Announcement</Title>
+        <PageHeading>Announcements</PageHeading>
         {/* Announcement Form */}
         <AnnouncementForm onSubmit={handleSubmit}>
           <FormGroup>

@@ -8,7 +8,7 @@ import {
   SchoolPerformance,
   IndividualPerformance,
 } from "../../styles/PerformanceStyles";
-import { Layout, MainContent } from "../../styles/UniversalStyles";
+import { Layout, MainContent, PageHeading } from "../../styles/UniversalStyles";
 
 const Performance = () => {
   // Sample data for school performance
@@ -27,21 +27,19 @@ const Performance = () => {
   return (
     <Layout>
       <MainContent>
-        <PerformanceContent>
-          <PerformanceHeader>School Performance</PerformanceHeader>
-          <SchoolPerformance>
-            <p>Average Score: {schoolPerformanceData.averageScore}</p>
-            <p>Total Students: {schoolPerformanceData.totalStudents}</p>
-          </SchoolPerformance>
-          <PerformanceHeader>Individual Performance</PerformanceHeader>
-          <IndividualPerformance>
-            {individualPerformanceData.map((student) => (
-              <p key={student.id}>
-                {student.name}: {student.score}
-              </p>
-            ))}
-          </IndividualPerformance>
-        </PerformanceContent>
+        <PageHeading>School Performance</PageHeading>
+        <SchoolPerformance>
+          <p>Average Score: {schoolPerformanceData.averageScore}</p>
+          <p>Total Students: {schoolPerformanceData.totalStudents}</p>
+        </SchoolPerformance>
+        <PageHeading>Individual Performance</PageHeading>
+        <IndividualPerformance>
+          {individualPerformanceData.map((student) => (
+            <p key={student.id}>
+              {student.name}: {student.score}
+            </p>
+          ))}
+        </IndividualPerformance>
       </MainContent>
     </Layout>
   );

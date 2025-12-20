@@ -1,6 +1,5 @@
 // Attendance.js
 import React, { useState, useEffect } from "react";
-import Sidebar from "./Sidebar";
 import axios from "axios";
 import {
   AttendanceContainer,
@@ -14,7 +13,8 @@ import {
   Divider,
   SubmitButton,
 } from "../../styles/AttendanceStyles";
-import { Layout, MainContent } from "../../styles/UniversalStyles";
+import { Layout, MainContent, PageHeading } from "../../styles/UniversalStyles";
+import { getAttendance } from "../../api/adminapi";
 
 const Attendance = () => {
   const [students, setStudents] = useState([]);
@@ -26,9 +26,7 @@ const Attendance = () => {
 
   const fetchStudents = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:4000/api/v1/students/getall"
-      );
+      const response = await getAttendance();
       setStudents(response.data.students);
       initializeAttendanceData(response.data.students);
     } catch (error) {
@@ -76,48 +74,46 @@ const Attendance = () => {
   return (
     <Layout>
       <MainContent>
-        <AttendanceContent>
-          <AttendanceHeader>Attendance</AttendanceHeader>
-          <AttendanceList>
-            {students.map((student, index) => (
-              <React.Fragment key={student.id}>
-                <AttendanceItem>
-                  <StudentName>{student.name}</StudentName>
-                  <CheckboxLabel>
-                    <input
-                      type="checkbox"
-                      checked={attendanceData[index]?.status === "Present"}
-                      onChange={() => handleStatusChange(student.id, "Present")}
-                    />
-                    Present
-                  </CheckboxLabel>
-                  <CheckboxLabel>
-                    <input
-                      type="checkbox"
-                      checked={attendanceData[index]?.status === "Absent"}
-                      onChange={() => handleStatusChange(student.id, "Absent")}
-                    />
-                    Absent
-                  </CheckboxLabel>
-                  <CheckboxLabel>
-                    <input
-                      type="checkbox"
-                      checked={
-                        attendanceData[index]?.status === "Absent with apology"
-                      }
-                      onChange={() =>
-                        handleStatusChange(student.id, "Absent with apology")
-                      }
-                    />
-                    Absent with apology
-                  </CheckboxLabel>
-                </AttendanceItem>
-                {index !== students.length - 1 && <Divider />}
-              </React.Fragment>
-            ))}
-          </AttendanceList>
-          <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
-        </AttendanceContent>
+        <PageHeading>Attendance</PageHeading>
+        <AttendanceList>
+          {students.map((student, index) => (
+            <React.Fragment key={student.id}>
+              <AttendanceItem>
+                <StudentName>{student.name}</StudentName>
+                <CheckboxLabel>
+                  <input
+                    type="checkbox"
+                    checked={attendanceData[index]?.status === "Present"}
+                    onChange={() => handleStatusChange(student.id, "Present")}
+                  />
+                  Present
+                </CheckboxLabel>
+                <CheckboxLabel>
+                  <input
+                    type="checkbox"
+                    checked={attendanceData[index]?.status === "Absent"}
+                    onChange={() => handleStatusChange(student.id, "Absent")}
+                  />
+                  Absent
+                </CheckboxLabel>
+                <CheckboxLabel>
+                  <input
+                    type="checkbox"
+                    checked={
+                      attendanceData[index]?.status === "Absent with apology"
+                    }
+                    onChange={() =>
+                      handleStatusChange(student.id, "Absent with apology")
+                    }
+                  />
+                  Absent with apology
+                </CheckboxLabel>
+              </AttendanceItem>
+              {index !== students.length - 1 && <Divider />}
+            </React.Fragment>
+          ))}
+        </AttendanceList>
+        <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
       </MainContent>
     </Layout>
   );
